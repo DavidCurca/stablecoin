@@ -1,6 +1,6 @@
 # RONCOIN — Romanian stablecoin
 <p align="center">
-  <img src="https://raw.githubusercontent.com/DavidCurca/stablecoin/refs/heads/main/images/banner.png?token=GHSAT0AAAAAACTVJV55TZ2KTX2I5Y3QLERY2HLYJBQ">
+  <img src="https://raw.githubusercontent.com/DavidCurca/stablecoin/refs/heads/main/images/banner.png?token=GHSAT0AAAAAACTVJV55TZ2KTX2I5Y3QLERY2HLYJBQ" height="120px">
 </p>
 
 -----
