@@ -1,6 +1,6 @@
 # RONCOIN — Romanian stablecoin
 <p align="center">
-  <img src="https://raw.githubusercontent.com/DavidCurca/stablecoin/refs/heads/main/images/banner.png">
+  <img src="https://raw.githubusercontent.com/DavidCurca/stablecoin/refs/heads/main/images/banner.png?token=GHSAT0AAAAAACTVJV55TZ2KTX2I5Y3QLERY2HLYJBQ">
 </p>
 
 -----
@@ -11,7 +11,7 @@ It is available on the solana devnet and polygon devnet. Alongside user interfac
 
 | Chain | Address | Link |
 | - | - | - |
-| Solana | `11111111111111111111111111111111` | [Solscan]((https://solscan.io/account/11111111111111111111111111111111?cluster=devnet))
+| Solana | `11111111111111111111111111111111` | [Solscan](https://solscan.io/account/11111111111111111111111111111111?cluster=devnet)
 | Polygon | `0x0d0d581485955605041a4fa93ae47fd5511bfb63` | [polygonscan](https://polygonscan.com/address/0x0d0d581485955605041a4fa93ae47fd5511bfb63) |
 
 - bridging across the supported chains: [algoritmus.ro/stablecoin/bridge](https://algoritmus.ro/stablecoin/bridge)
