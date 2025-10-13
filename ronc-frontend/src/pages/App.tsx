@@ -1,8 +1,9 @@
 import { Button } from '@/components/ui/button';
-import fullLogo from "./assets/roncoin_logo_full.svg";
-import './App.css';
 import { Banknote, Bitcoin, Landmark, Menu, MoveRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import Navbar from './Navbar';
+import './App.css';
+
 
 interface Banknote {
   url: string,
@@ -10,11 +11,11 @@ interface Banknote {
   height: number,
 }
 
-function App() {
+function App(props: { className: string }) {
   const [scrollY, setScrollY] = useState(0);
   const [randomImages, setRandomImages] = useState<Banknote[]>([]);
 
-  const width = 30, height = 50, offset = -10;
+  const width = 50, height = 50, offset = -10;
   const banknotes_images: Banknote[] = [
     { url: "/banknotes/100lei.png", width: 1936, height: 1080 },
     { url: "/banknotes/10lei.png", width: 1995, height: 1080 },
@@ -25,25 +26,22 @@ function App() {
     { url: "/banknotes/50lei.png", width: 1963, height: 1080 },
     { url: "/banknotes/5lei.png", width: 2047, height: 1080 },
   ];
-  // const random_images = Array.from({ length: height }, () => 
-  //   Array.from({ length: width }, () => banknotes_images[Math.floor(Math.random() * banknotes_images.length)]
-  // ));
 
   const banknotes_background = () => {
-    console.log(randomImages[0]);
     if(randomImages.length === 0) return [];
-    const banknote_width = 200, banknote_height = 110, gap = 10;
-    const ouput = [];
-    for(let i = offset; i < height + offset; i++) {
-      for(let j = offset; j < width + offset; j++) {
-        const image = randomImages[(i - offset) * width + (j - offset)];
-        const node = <img src={image.url} className={`h-[100px] absolute`} style={{top: `${i * banknote_height + gap}px`, left: `${j * banknote_width + gap}px` }} />;
-        // const image_tag = <img src={image.url} className={`h-[100px] absolute`} style={{top: `${y}px`, left: `${x}px` }} />;
-        // console.log(`scale factor = ${banknote_height / image.height}x`)
-        // y += (banknote_height / image.height) * image.width + gap;
+    const banknote_height = 100, gap = 10;
+    let x = -1000, y = -2500;
+    let ouput = [];
+    for(let i = 0; i < height; i++) { 
+      y = -2500;
+      for(let j = 0; j < width; j++) {
+        const image = randomImages[i * width + j];
+        const node_width = (banknote_height / image.height) * image.width;
+        const node = <img src={image.url} key={`${i}-${j}`} className={`h-[100px] absolute`} style={{top: `${x}px`, left: `${y}px` }} />;
+        y += node_width + gap;
         ouput.push(node);
       }
-      // x += banknote_height;
+      x += banknote_height + gap;
     }
     return ouput;
   }
@@ -59,41 +57,23 @@ function App() {
   }, []);
 
   return (
-    <div className='min-w-screen min-h-screen'>
-      {/* Navbar */}
-      <div className="fixed top-0 left-0 right-0 z-1000 bg-background/80 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <img src={fullLogo} alt="Roncoin Logo" className="w-[30vw] max-w-[10rem]" />
-          <div className="sections flex items-center gap-4">
-            <p>Whitepaper</p>
-            <p>About</p>
-            <p>Transparency</p>
-            <p>Bridge</p>
-          </div>
-          <div className='flex flex-row items-center justify-center gap-5'>
-            <Button>
-              Get Started
-            </Button>
-            <Menu />
-          </div>
-        </div>
-      </div>
+    <div className={`min-w-screen min-h-screen ${props.className}`}>
       {/* Page Content */}
-      <div className='pt-32 pb-16'>
+      <div className='pb-16'>
         <div className='flex flex-row items-center justify-center flex-wrap mb-6 gap-5'>
           <div className='flex flex-col items-center justify-center gap-20 md:gap-15'>
             <div className='flex flex-col items-center justify-center gap-2 md:gap-10 '>
               <h1 className="text-center text-xl md:text-3xl md:w-[50vw] lg:text-5xl font-bold text-foreground text-balance">
-                The Romania Stablecoin is finally here
+                The Romanian Stablecoin is finally here
               </h1>
               <p className='description text-center text-sm w-[85%] md:w-[40vw] text-gray-500'>RONCOIN is a Romanian stablecoin on Solana and Polygon, pegged 1:1 with the leu (RON). Built for speed, transparency, and liquidity, it enables seamless cross-chain transactions and instant 24/7 redemption within a secure, decentralized ecosystem.</p>  
             </div>
             <div className='flex flex-row gap-2'>
-              <Button>Create Account</Button>
-              <Button variant='outline'>See Features</Button>
+              <Button className='cursor-pointer'>Create Account</Button>
+              <Button variant='outline' className='cursor-pointer'>See Features</Button>
             </div>
           </div>
-          <div className='flex items-center justify-center bg-red-600 md:w-[40vw] w-[90vw] h-32 border-left-4 border-left-[#00ff00] canvas3d'>
+          <div className='flex items-center justify-center border-2 border-dashed bg-gray-100 rounded-lg md:w-[40vw] w-[90vw] h-32 border-left-4 border-left-[#00ff00] canvas3d'>
             <p>Spinning 3D Model of coin here</p>
           </div>
         </div>
@@ -101,7 +81,7 @@ function App() {
       <div className='relative overflow-hidden'>
         <div className='relative z-0 w-[100vw] h-[500vh] rotate-[-15deg]' style={{
           transform: `translateX(${scrollY * 0.5}px)`,
-          transition: 'transform 0.1s ease-out'
+          transition: 'transform 0.7s ease-out'
         }}>
           {banknotes_background()}
         </div>

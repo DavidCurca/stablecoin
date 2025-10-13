@@ -8,4 +8,7 @@
   .description {
     margin-top: calc(var(--spacing) * 5);
   }
+  .dropdown-menu-trigger {
+    display: block !important;
+  }
 }

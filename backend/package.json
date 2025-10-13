@@ -4,22 +4,27 @@
   "description": "",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
     "build": "tsc",
-    "start": "npm run clean && npm run build && node dist/index.js",
-    "dev": "nodemon"
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.32.1",
     "@solana/web3.js": "^1.98.4",
     "@stripe/stripe-js": "^8.0.0",
     "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.15.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

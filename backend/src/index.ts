@@ -1,16 +1,18 @@
-interface Message {
-  author: string,
-  content: string,
-}
+import express from 'express';
+import userRouter from './user';
+import { countries } from './countries';
 
-function printMessage(message: Message) {
-  console.log(`${message.author}: ${message.content}`);
-}
+const app = express();
 
-const messages: Message[] = [
-  { author: "divad", content: "asdads world!" },
-  { author: "divad", content: "hello!" },
-];
-for (const message of messages) {
-  printMessage(message);
-}
+app.use(express.json());
+app.use('/user', userRouter);
+
+app.get('/countries', (req, res) => {
+  res.json(countries);
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+
+export default app;

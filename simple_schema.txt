@@ -1,14 +1,51 @@
 CREATE TABLE users (
-  email varchar(100),
-  username varchar(16),
-  phone varchar(30),
-  country varchar(2),
-  password varchar(64)
-)
+  username varchar(16) PRIMARY KEY,
+  email varchar(100) NOT NULL,
+  phone varchar(30) NOT NULL,
+  country varchar(2) NOT NULL,
+  password varchar(64) NOT NULL
+);
+
+CREATE TYPE blockchain AS ENUM ('solana', 'polygon');
 
 CREATE TABLE reference_codes (
-  user varchar(16),
-  chain enum 'solana', 'polygon',
-  pubkey varchar(64),
-  amount int,
-)
+  author varchar(16),
+  chain blockchain,
+  pubkey varchar(64) NOT NULL,
+  amount bigint NOT NULL,
+  CONSTRAINT rc_author FOREIGN KEY(author) REFERENCES users(username),
+  PRIMARY KEY (author, pubkey)
+);
+
+CREATE TABLE sessions (
+  jwt text PRIMARY KEY NOT NULL,
+  author varchar(16) NOT NULL,
+  CONSTRAINT s_author FOREIGN KEY(author) REFERENCES users(username)
+);
+
+CREATE TYPE tx_type as ENUM ('mint', 'redeem', 'bridge')
+
+CREATE TABLE reciepts (
+  id serial PRIMARY KEY NOT NULL,
+  timestamp bigint NOT NULL,
+  author varchar(16) NOT NULL,
+  operation tx_type NOT NULL,
+  amount bigint,
+  chain blockchain NOT NULL,
+  explorer_url text NOT NULL,
+  CONSTRAINT r_author FOREIGN KEY(author) REFERENCES users(username)
+);
+
+CREATE TABLE oracle_updates (
+  id serial PRIMARY KEY NOT NULL,
+  timestamp bigint NOT NULL,
+  value bigint,
+  chain blockchain NOT NULL,
+  explorer_url text NOT NULL
+);
+
+CREATE TABLE global_state (
+  num_users int,
+  num_tx int,
+  reserve bigint
+);
