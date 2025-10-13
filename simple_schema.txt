@@ -1,0 +1,14 @@
+CREATE TABLE users (
+  email varchar(100),
+  username varchar(16),
+  phone varchar(30),
+  country varchar(2),
+  password varchar(64)
+)
+
+CREATE TABLE reference_codes (
+  user varchar(16),
+  chain enum 'solana', 'polygon',
+  pubkey varchar(64),
+  amount int,
+)
