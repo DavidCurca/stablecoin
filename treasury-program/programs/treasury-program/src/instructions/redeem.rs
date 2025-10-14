@@ -1,13 +1,13 @@
 use anchor_lang::prelude::*;
 use crate::constants::MINT_AUTHORITY;
-use crate::events::MintEvent;
+use crate::events::BurnEvent;
 use anchor_spl::{
   associated_token::AssociatedToken,
   token_interface::{self, Mint, MintTo, TokenAccount, TokenInterface},
 };
 
 #[derive(Accounts)]
-pub struct Flow<'info> {
+pub struct Redeem<'info> {
   #[account(mut)]
   pub user: Signer<'info>,
   
@@ -20,7 +20,6 @@ pub struct Flow<'info> {
   )]
   pub mint_authority: AccountInfo<'info>,
   #[account(
-    init_if_needed,
     payer = user,
     associated_token::mint = ronc_mint,
     associated_token::authority = user,
@@ -35,13 +34,13 @@ pub struct Flow<'info> {
   pub rent: Sysvar<'info, Rent>,
 }
 
-// mint `amount` tokens to user vault (use CPI signed by the `mint_authority` PDA), emit event
-pub fn handler(ctx: Context<Flow>, amount: u64, refrence_code: String) -> Result<()> {
+// burn `amount` tokens from user vault, emit event
+pub fn handler(ctx: Context<Redeem>, amount: u64, refrence_code: String) -> Result<()> {
   msg!("user {} requested to mint {} RONC", ctx.accounts.user, amount);
-  emit!(MintEvent {
+  emit!(BurnEvent {
     user: ctx.accounts.user,
     amount: amount,
-    reference_code: reference_code
-  })
+    reference_code: String
+  });
   Ok(())
 }

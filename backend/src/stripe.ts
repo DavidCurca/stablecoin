@@ -3,6 +3,7 @@ import { Stripe } from "stripe";
 
 const router = Router();
 
+// create payment intent if and only if the reference code exists in the database
 router.post('/create-payment-intent', async (req, res) => {
   const { amount } = req.body;
   const paymentIntent = await stripe.paymentIntents.create({

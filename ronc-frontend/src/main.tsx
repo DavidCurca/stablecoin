@@ -7,6 +7,7 @@ import Signup from './pages/Signup.tsx'
 import Login from './pages/Login.tsx'
 import Account from './pages/Account.tsx'
 import Whitepaper from './pages/Whitepaper.tsx'
+import Footer from './pages/Footer.tsx'
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/account' element={<Account className='pt-32' />} />
         <Route path='/whitepaper' element={<Whitepaper className='pt-32' />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   </StrictMode>,
 )
