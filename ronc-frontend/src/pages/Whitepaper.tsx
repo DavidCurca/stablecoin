@@ -19,7 +19,7 @@ export default function Whitepaper(props: { className: string }) {
       </h1>
       <div className="flex items-center justify-center gap-2 flex-wrap">
         {documents.map((document) => 
-          <div className="bg-gray-100 flex flex-col items-center justify-center w-[90vw] max-w-[500px] h-[120px] gap-5 p-2 border-2 border-gray-200 rounded-md">
+          <div key={document.name} className="bg-gray-100 flex flex-col items-center justify-center w-[90vw] max-w-[500px] h-[120px] gap-5 p-2 border-2 border-gray-200 rounded-md">
             <p>{document.name}</p>
             <Link to={document.url} target="_blank" rel="noopener noreferrer" className="w-full">
               <div className="flex items-center justify-center gap-2 bg-blue-500 p-2 rounded-md cursor-pointer w-full text-white">

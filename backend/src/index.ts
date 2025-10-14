@@ -1,9 +1,11 @@
 import express from 'express';
 import userRouter from './user';
+import stripeRouter from './stripe';
 import { countries } from './countries';
 
 const app = express();
 
+app.use('/stripe', stripeRouter);
 app.use(express.json());
 app.use('/user', userRouter);
 

@@ -8,8 +8,8 @@ use anchor_spl::{
 
 #[derive(Accounts)]
 pub struct Flow<'info> {
-  #[account(mut)]
-  pub user: Signer<'info>,
+  #[account(mut, signer)]
+  pub user: AccountInfo<'info>,
   
   #[account(signer)]
   pub signer: AccountInfo<'info>,
@@ -37,11 +37,11 @@ pub struct Flow<'info> {
 
 // mint `amount` tokens to user vault (use CPI signed by the `mint_authority` PDA), emit event
 pub fn handler(ctx: Context<Flow>, amount: u64, refrence_code: String) -> Result<()> {
-  msg!("user {} requested to mint {} RONC", ctx.accounts.user, amount);
-  emit!(MintEvent {
-    user: ctx.accounts.user,
-    amount: amount,
-    reference_code: reference_code
-  })
+  msg!("user {:?} requested to mint {} RONC", ctx.accounts.user.key(), amount);
+  // emit!(MintEvent {
+  //   user: ctx.accounts.user.key(),
+  //   amount: amount,
+  //   reference_code: reference_code
+  // });
   Ok(())
 }

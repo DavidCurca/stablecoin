@@ -1,5 +1,6 @@
 CREATE TABLE users (
   username varchar(16) PRIMARY KEY,
+  stripe_id varchar(200) NOT NULL,
   firstname varchar(30) NOT NULL,
   lastname varchar(30) NOT NULL,
   email varchar(100) NOT NULL,
@@ -47,7 +48,11 @@ CREATE TABLE oracle_updates (
 );
 
 CREATE TABLE global_state (
-  num_users int,
-  num_tx int,
-  reserve bigint
+  timestamp bigint NOT NULL,
+  num_users int NOT NULL,
+  num_tx int NOT NULL,
+  reserve bigint NOT NULL,
+  latest boolean
 );
+
+INSERT INTO global_state (timestamp, num_users, num_tx, reserve, latest) VALUES (1760470631687, 0, 0, 0, true);

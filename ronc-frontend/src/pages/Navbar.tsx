@@ -18,6 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token);
     if (token == null || token == undefined || token == "") {
       setAuth(false);
       return;
@@ -27,13 +28,17 @@ export default function Navbar() {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.message == "Unauthorized") {
+      .then((response) => {
+        console.log(response.status);
+        if(response.status !== 200){
           setAuth(false);
+          localStorage.removeItem("token");
           navigate("/");
           return;
         }
+        return response.json();
+      })
+      .then((data) => {
         setAuth(true);
         setUsername(data.username);
       });
@@ -52,7 +57,7 @@ export default function Navbar() {
           <p className="cursor-pointer" onClick={() => navigate("/whitepaper")}>
             Whitepaper
           </p>
-          <p className="cursor-pointer" onClick={() => navigate("/about")}>
+          <p className="cursor-pointer" onClick={() => navigate("/#about")}>
             About
           </p>
           <p
@@ -66,11 +71,10 @@ export default function Navbar() {
           </p>
         </div>
         <div className="flex flex-row items-center justify-center gap-5">
-          <UserDropdown username={"divad"} />
-          {/* {auth ? <UserDropdown username={username} />
+          {auth ? <UserDropdown username={username} />
             : <Button onClick={() => navigate('/signup')}>
             Get Started
-          </Button> } */}
+          </Button> }
           <DropdownMenu>
             <DropdownMenuTrigger className="hidden dropdown-menu-trigger">
               <Menu />

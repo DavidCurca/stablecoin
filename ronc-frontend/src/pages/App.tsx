@@ -3,6 +3,7 @@ import { Banknote, Bitcoin, Landmark, Menu, MoveRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import './App.css';
+import { useNavigate } from 'react-router';
 
 
 interface Banknote {
@@ -12,6 +13,7 @@ interface Banknote {
 }
 
 function App(props: { className: string }) {
+  const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
   const [randomImages, setRandomImages] = useState<Banknote[]>([]);
 
@@ -69,7 +71,7 @@ function App(props: { className: string }) {
               <p className='description text-center text-sm w-[85%] md:w-[40vw] text-gray-500'>RONCOIN is a Romanian stablecoin on Solana and Polygon, pegged 1:1 with the leu (RON). Built for speed, transparency, and liquidity, it enables seamless cross-chain transactions and instant 24/7 redemption within a secure, decentralized ecosystem.</p>  
             </div>
             <div className='flex flex-row gap-2'>
-              <Button className='cursor-pointer'>Create Account</Button>
+              <Button className='cursor-pointer' onClick={() => navigate('/signup')}>Create Account</Button>
               <Button variant='outline' className='cursor-pointer'>See Features</Button>
             </div>
           </div>

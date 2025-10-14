@@ -11,6 +11,7 @@ import Footer from './pages/Footer.tsx'
 import Bridge from './pages/Bridge.tsx'
 import Transparency from './pages/Transparency.tsx'
 import './index.css'
+import { Toaster } from 'sonner'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/whitepaper' element={<Whitepaper className='pt-32' />} />
       </Routes>
       <Footer />
+      <Toaster />
     </BrowserRouter>
   </StrictMode>,
 )
