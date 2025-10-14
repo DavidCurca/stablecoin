@@ -1,3 +1,4 @@
+import { Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface Country {
@@ -9,11 +10,15 @@ interface Country {
 
 export default function Signup(props: { className: string }) {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [country, setCountry] = useState<Country | null>(null);
 
   useEffect(() => {
     fetch('/api/countries')
       .then(res => res.json())
-      .then(data => setCountries(data));
+      .then(data => {
+        setCountries(data)
+        console.log(data);
+    });
   }, []);
 
   return (
@@ -26,6 +31,12 @@ export default function Signup(props: { className: string }) {
         </div>
         <div className="w-full flex flex-col justify-center bg-white p-2 rounded-md">
           <input type="text" placeholder="username" className="bg-transparent w-full"/>
+        </div>
+        <div className="w-full flex items-center gap-2">
+          <div className="flex flex-1 flex-col justify-center bg-white p-2 rounded-md">
+            <input type="password" placeholder="password" className="bg-transparent w-full"/>
+          </div>
+          <Eye />
         </div>
         <div className="w-full flex flex-row justify-center gap-2">
           <div className="min-w-[49%] w-full flex flex-col justify-center bg-white p-2 rounded-md">
@@ -46,9 +57,14 @@ export default function Signup(props: { className: string }) {
         <p className="w-full text-left">Phone number: </p>
         <div className="w-full flex flex-row justify-center items-center gap-2 flex-nowrap">
           <div className="bg-white p-2 rounded-md">
-            <p>{countries[0].dial_code}</p>
+            {country == null ? <p>+40</p> : <p>{country.dial_code}</p>}
           </div>
-          <input type="text" placeholder="phone number" className="bg-transparent w-full"/>
+          <div className="w-full flex flex-col justify-center bg-white p-2 rounded-md">
+            <input type="text" placeholder="phone number" className="bg-transparent w-full"/>
+          </div>
+        </div>
+        <div className="w-full p-2 bg-blue-500 rounded-md text-center text-white">
+          <p>Signup</p>
         </div>
       </div>
     </div>

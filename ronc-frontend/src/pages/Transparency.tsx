@@ -1,5 +1,10 @@
-export default function Transparency(){
+export default function Transparency(props: { className: string }){
   return (
-    <p>Transparency</p>
+    <div className={`${props.className}`}>
+      <p>Reserve composition</p>
+      <p>Reserve changes</p>
+      <p>Oracle updates</p>
+      <p>Volume & Users</p>
+    </div>
   )
 }
