@@ -16,8 +16,8 @@ router.get('/check', jwtMiddleware, async (req, res) => {
 
 // validates user input and creates user, retruning the new session created
 router.post('/create', async (req, res) => {
-  const { username, email, password, phone, country } = req.body;
-  if(!username || !email || !password || !phone || !country){
+  const { username, email, password, phone, country, firstname, lastname } = req.body;
+  if(!username || !email || !password || !phone || !country || !firstname || !lastname){
     return res.status(400).json({ message: 'Missing required fields' }); 
   }
   if(!countries.some(c => c.code === country)){ return res.status(400).json({ message: 'Invalid country' }); }
@@ -25,8 +25,8 @@ router.post('/create', async (req, res) => {
 
   const hashedPassword = generateSHA256(`${process.env.PASSWORD_SALT}:${password}`);
   const user = await db.query(
-    'INSERT INTO users (username, email, password, phone, country) VALUES ($1, $2, $3, $4, $5) RETURNING *', 
-    [username, email, hashedPassword, phone, country]
+    'INSERT INTO users (username, email, password, phone, country, firstname, lastname) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', 
+    [username, email, hashedPassword, phone, country, firstname, lastname]
   );
   
   const token = jwt.sign({ username }, process.env.JWT_SECRET as string);
