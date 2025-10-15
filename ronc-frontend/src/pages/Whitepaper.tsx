@@ -13,7 +13,7 @@ export default function Whitepaper(props: { className: string }) {
     {name: "Whitepaper English", url: "/whitepaper/whitepaper_EN.pdf"},
   ]
   return (
-    <div className={props.className}>
+    <div className={`${props.className} pb-16`}>
       <h1 className="text-center text-bold text-2xl mb-5">
         Whitepaper — these are the original documents from the RONCOIN Team
       </h1>

@@ -14,6 +14,13 @@ router.get('/check', jwtMiddleware, async (req, res) => {
   res.json({ username: username.rows[0].author });
 });
 
+router.get('/user-info', jwtMiddleware, async (req, res) => {
+  const jwt = req.headers.authorization?.split(' ')[1];
+  const username = await db.query('SELECT author FROM sessions WHERE jwt = $1', [jwt]);
+  const user = await db.query('SELECT * FROM users WHERE username = $1', [username.rows[0].author]);
+  res.json({ user: user.rows[0] });
+});
+
 // validates user input and creates user, retruning the new session created
 router.post('/create', async (req, res) => {
   const { username, email, password, phone, country, firstname, lastname } = req.body;

@@ -1,10 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { Banknote, Bitcoin, Landmark, Menu, MoveRight } from 'lucide-react';
+import { Banknote, Bitcoin, Landmark, MoveRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import Navbar from './Navbar';
 import './App.css';
 import { useNavigate } from 'react-router';
-
 
 interface Banknote {
   url: string,
@@ -17,7 +15,7 @@ function App(props: { className: string }) {
   const [scrollY, setScrollY] = useState(0);
   const [randomImages, setRandomImages] = useState<Banknote[]>([]);
 
-  const width = 50, height = 50, offset = -10;
+  const width = 50, height = 50;
   const banknotes_images: Banknote[] = [
     { url: "/banknotes/100lei.png", width: 1936, height: 1080 },
     { url: "/banknotes/10lei.png", width: 1995, height: 1080 },
@@ -58,6 +56,9 @@ function App(props: { className: string }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  
+
+
   return (
     <div className={`min-w-screen min-h-screen ${props.className}`}>
       {/* Page Content */}
@@ -75,13 +76,13 @@ function App(props: { className: string }) {
               <Button variant='outline' className='cursor-pointer'>See Features</Button>
             </div>
           </div>
-          <div className='flex items-center justify-center border-2 border-dashed bg-gray-100 rounded-lg md:w-[40vw] w-[90vw] h-32 border-left-4 border-left-[#00ff00] canvas3d'>
-            <p>Spinning 3D Model of coin here</p>
+          <div className='flex items-center justify-center md:w-[40vw] w-[90vw] h-64 border-left-4 border-left-[#00ff00] canvas3d'>
+            <img src="/coin_logo.png" alt='coin' className='h-full' />
           </div>
         </div>
       </div>
       <div className='relative overflow-hidden'>
-        <div className='relative z-0 w-[100vw] h-[500vh] rotate-[-15deg]' style={{
+        <div className='relative z-0 w-[100vw] h-[200vh] rotate-[-15deg]' style={{
           transform: `translateX(${scrollY * 0.5}px)`,
           transition: 'transform 0.7s ease-out'
         }}>
@@ -89,9 +90,24 @@ function App(props: { className: string }) {
         </div>
         <div className='absolute top-0 left-0 w-[100vw] flex-col flex items-center justify-center pt-32'>
           <div className='bg-white border-2 border-gray-200 z-100 w-[90vw] max-w-[900px] p-5 rounded-lg'>
-            <h1 className='flex flex-row items-center gap-2 font-bold'>Step 1: <Banknote /> <MoveRight /> <Landmark /> <MoveRight /> <Bitcoin /></h1>
+            <h1 className='flex flex-row items-center gap-2 font-bold'>Abstraact</h1>
             <div className='w-full h-1 bg-gray-200 mt-2 mb-2'></div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed egestas arcu, quis vehicula nisi. Duis sed risus ut dolor tempor rhoncus id non velit. Donec ac quam non magna bibendum tempus. Vestibulum eu mi facilisis, pulvinar quam in, ultrices ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas mauris sem, porta sed rutrum vel, pulvinar sit amet dui. Vestibulum et diam ligula. Etiam elementum leo nec erat convallis, eu ornare urna tristique. Praesent pulvinar nisl vel nunc gravida facilisis</p>
+            <p>The digital transformation of the Romanian financial
+system requires a modern infrastructure, compatible with
+emerging blockchain technologies. RONCOIN is a research
+and development initiative that aims to integrate the
+national currency into the blockchain ecosystem,
+providing a new layer of liquidity and functionality for the
+digital economy. The project proposes a stablecoin
+anchored to the Romanian Leu (RON), implemented on
+multiple blockchains (Polygon and Solana), to ensure
+extensive accessibility, interoperability and resilience to the
+dysfunctions of the traditional financial infrastructure. By
+using a currency oracle and a cross-chain bridge,
+RONCOIN facilitates fast, secure and transparent
+transactions, paving the way for future integration with
+financial institutions and global payment networks (SEPA,
+SWIFT).</p>
           </div>
         </div>
       </div>

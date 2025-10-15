@@ -6,7 +6,7 @@ import {
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-export default function CheckoutForm(props: { amount: number }) {
+export default function CheckoutForm(props: { amount: number, setAmount: (amount: number) => void }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -59,7 +59,20 @@ export default function CheckoutForm(props: { amount: number }) {
 
   return (
     <form className="w-[90vw] max-w-[600px] flex flex-col gap-4 bg-gray-100 p-4 rounded-md" onSubmit={handleSubmit}>
-      <p>Convert <span className="font-bold">{props.amount}</span> RON to RONC</p>
+      <div className="flex flex-row gap-2 items-center">
+        <p>Convert</p>
+        <input
+          type="text"
+          className="w-20 bg-gray-200 rounded-md p-2"
+          value={props.amount}
+          onChange={(e) => props.setAmount(Number(e.target.value))}
+        />
+        <p>RON to RONC into </p>
+        <select className="bg-gray-200 rounded-md p-2">
+          <option value="reference_code_1">Account 1</option>
+          <option value="reference_code_2">Account 2</option>
+        </select>
+      </div>
       {clientSecret && <PaymentElement />}
       <button type="submit" className="w-full bg-blue-500 text-white p-2 py-3 rounded-md text-bold">
         {loading ? "Processing..." : "Pay now"}
